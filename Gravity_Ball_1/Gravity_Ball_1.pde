@@ -6,9 +6,9 @@ int sz=20;
 void setup() {
   size(800, 600);
   x=width/2;
-  y=height/2;
+  y=height/4;
   gravity=0.75;
-  velX=1;
+  velX=6;
   velY=0;
 }
 
