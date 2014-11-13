@@ -8,7 +8,7 @@ void setup() {
   x=width/2;
   y=height/2;
   gravity=1;
-  velX=0;
+  velX=1;
   velY=0;
 }
 
@@ -19,8 +19,12 @@ void draw() {
   velY+=gravity;
   x+=velX;
   y+=velY;
+  if(x+sz/2>=width || x-sz/2<=0){
+    velX*=-0.9;
+  }
   if(y+sz/2>=height || y-sz/2<=0){
-    velY*=-1;
+    y=height-sz/2;
+    velY*=-0.9;
   }
   
 }
