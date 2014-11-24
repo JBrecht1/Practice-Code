@@ -7,10 +7,10 @@ float[] sz= new float [count];
 void setup() {
   size(800, 600);
   for (int i=0; i<count; i++) {
-    sz[i]=random(20, 40);
+    sz[i]=random(1,5);
     loc[i]=new PVector (random(sz[i], width-sz[i]), random(sz[i], height-sz[i]));
     vel[i]= PVector.random2D();
-    acc[i]=new PVector (0, 0);
+    acc[i]=new PVector (0,0.05);
   }
 }
 
@@ -18,14 +18,14 @@ void draw() {
   noStroke();
   fill(0,20);
   rect(0,0,width,height);
-  fill(random(255),random(255),random(255));
+  fill(0,0,255);
   for (int i=0; i<count; i++) {
     vel[i].add(acc[i]);
     loc[i].add(vel[i]);
     for (int j=0; j<count; j++) {
       if (i!=j) {
         if (loc[i].dist(loc[j])<sz[i]/2+sz[j]/2) {
-          print("COLLISION");
+          print(" COLLISION ");
           if (loc[i].x<loc[j].x) {
             vel[i].x= -abs(vel[i].x);
             vel[j].x= abs(vel[j].x);
