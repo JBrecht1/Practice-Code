@@ -15,14 +15,17 @@ void setup() {
 }
 
 void draw() {
-  background(0);
+  noStroke();
+  fill(0,20);
+  rect(0,0,width,height);
+  fill(random(255),random(255),random(255));
   for (int i=0; i<count; i++) {
     vel[i].add(acc[i]);
     loc[i].add(vel[i]);
     for (int j=0; j<count; j++) {
       if (i!=j) {
         if (loc[i].dist(loc[j])<sz[i]/2+sz[j]/2) {
-          print("COLLISION CODE");
+          print("COLLISION");
           if (loc[i].x<loc[j].x) {
             vel[i].x= -abs(vel[i].x);
             vel[j].x= abs(vel[j].x);
