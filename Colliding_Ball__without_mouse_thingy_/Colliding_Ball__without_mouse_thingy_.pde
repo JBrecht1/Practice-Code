@@ -7,18 +7,18 @@ float[] sz= new float [count];
 void setup() {
   size(800, 600);
   for (int i=0; i<count; i++) {
-    sz[i]=random(1,5);
+    sz[i]=random(1, 5);
     loc[i]=new PVector (random(sz[i], width-sz[i]), random(sz[i], height-sz[i]));
     vel[i]= PVector.random2D();
-    acc[i]=new PVector (0,0.05);
+    acc[i]=new PVector (0,0);
   }
 }
 
 void draw() {
   noStroke();
-  fill(0,20);
-  rect(0,0,width,height);
-  fill(0,0,255);
+  fill(0, 20);
+  rect(0, 0, width, height);
+  fill(0, 0, 255);
   for (int i=0; i<count; i++) {
     vel[i].add(acc[i]);
     loc[i].add(vel[i]);
@@ -26,29 +26,17 @@ void draw() {
       if (i!=j) {
         if (loc[i].dist(loc[j])<sz[i]/2+sz[j]/2) {
           print(" COLLISION ");
-          if (loc[i].x<loc[j].x) {
-            vel[i].x= -abs(vel[i].x);
-            vel[j].x= abs(vel[j].x);
-          } else {
-            vel[i].x= abs(vel[i].x);
-            vel[j].x= -abs(vel[j].x);
-          }
-          if (loc[i].y<loc[j].y) {
-            vel[i].y=-abs(vel[j].y);
-            vel[j].y=abs(vel[j].y);
-          } else {
-            vel[i].y=-abs(vel[j].y);
-            vel[j].y=abs(vel[j].y);
-          }
+          vel[i]= PVector.sub(loc[i], loc[j]);
+          vel[i].setMag(2);
         }
       }
-    }
-    ellipse(loc[i].x, loc[i].y, sz[i], sz[i]);
-    if (loc[i].x+sz[i]/2>width || loc[i].x-sz[i]/2<0) {
-      vel[i].x*=-1;
-    }
-    if (loc[i].y+sz[i]/2>height || loc[i].y-sz[i]/2<0) {
-      vel[i].y*=-1;
+      ellipse(loc[i].x, loc[i].y, sz[i], sz[i]);
+      if (loc[i].x+sz[i]/2>width || loc[i].x-sz[i]/2<0) {
+        vel[i].x*=-1;
+      }
+      if (loc[i].y+sz[i]/2>height || loc[i].y-sz[i]/2<0) {
+        vel[i].y*=-1;
+      }
     }
   }
 }
